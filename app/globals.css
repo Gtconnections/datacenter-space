@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #03060f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: #dbe4f5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: rgba(79, 157, 255, 0.35);
+  color: #ffffff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #050912;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#1b3f8f, #0b3aa8);
+  border-radius: 8px;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-12;
+  }
+
+  .kicker {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-electric-bright;
+  }
+
+  .heading {
+    @apply font-display font-semibold tracking-tight text-white;
+  }
+
+  .neon-text {
+    text-shadow: 0 0 18px rgba(79, 157, 255, 0.55);
+  }
+
+  .glass {
+    @apply border border-white/10 bg-white/[0.03] backdrop-blur-md;
+  }
+
+  .card {
+    @apply relative overflow-hidden rounded-2xl border border-electric/20 bg-space-panel/60 p-6 transition
+           duration-300 hover:border-electric-bright/60 hover:shadow-neon;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-electric px-7 py-3.5 text-sm font-semibold
+           text-white shadow-neon transition duration-300 hover:bg-electric-bright hover:shadow-[0_0_30px_rgba(79,157,255,0.6)]
+           focus:outline-none focus:ring-2 focus:ring-electric-glow;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-electric/40 px-7 py-3.5 text-sm
+           font-semibold text-electric-bright transition duration-300 hover:border-electric-bright hover:bg-electric/10;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-white/10 bg-space-void/70 px-4 py-3 text-sm text-white placeholder-white/30
+           outline-none transition focus:border-electric-bright focus:shadow-neon;
+  }
+
+  .label {
+    @apply mb-1.5 block text-xs font-medium uppercase tracking-wider text-white/60;
+  }
+}
+
+/* Divider line with glow */
+.hline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(79, 157, 255, 0.5),
+    transparent
+  );
+}
+
+/* Radial hero glow */
+.hero-glow {
+  background: radial-gradient(
+    60% 60% at 50% 0%,
+    rgba(47, 123, 255, 0.22) 0%,
+    rgba(47, 123, 255, 0.06) 40%,
+    transparent 70%
+  );
+}
+
+/* Animated gradient text */
+.gradient-text {
+  background: linear-gradient(90deg, #63b3ff, #3fe0ff 55%, #4d9dff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
