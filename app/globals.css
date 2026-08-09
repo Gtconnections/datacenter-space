@@ -115,3 +115,94 @@ body {
   background-clip: text;
   color: transparent;
 }
+
+/* ======================================================================
+   TRIPPY MOTION LAYER — parallax vars, cosmic keyframes, animated glows
+   ====================================================================== */
+
+:root {
+  --mx: 0;   /* mouse x normalized -1..1 (smoothed) */
+  --my: 0;   /* mouse y normalized -1..1 */
+  --sy: 0;   /* scrollY in px */
+  --syn: 0;  /* scroll progress 0..1 */
+}
+
+@keyframes auroraSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+  50%      { transform: translate3d(0, -3%, 0) scale(1.12); }
+}
+@keyframes floaty2 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-26px) rotate(5deg); }
+}
+@keyframes floaty3 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(22px) rotate(-6deg); }
+}
+@keyframes hueshift {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50%      { opacity: 0.9;  transform: scale(1.12); }
+}
+@keyframes gradmove {
+  to { background-position: 200% center; }
+}
+@keyframes wobble {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50%      { transform: translateX(10px) rotate(2deg); }
+}
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.9; }
+}
+
+.animate-aurora   { animation: auroraSpin 70s linear infinite; }
+.animate-drift    { animation: drift 16s ease-in-out infinite; }
+.animate-floaty2  { animation: floaty2 12s ease-in-out infinite; }
+.animate-floaty3  { animation: floaty3 15s ease-in-out infinite; }
+.animate-hue      { animation: hueshift 22s linear infinite; }
+.animate-breathe  { animation: breathe 7s ease-in-out infinite; }
+.animate-spin-slow{ animation: auroraSpin 90s linear infinite; }
+.animate-spin-rev { animation: auroraSpin 120s linear infinite reverse; }
+.animate-wobble   { animation: wobble 9s ease-in-out infinite; }
+
+/* animated gradient text (psychedelic shimmer) */
+.gradient-anim {
+  background: linear-gradient(90deg, #63b3ff, #3fe0ff, #9d7bff, #3fe0ff, #63b3ff);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradmove 6s linear infinite;
+}
+
+/* parallax helpers that read the motion vars (transforms live on wrappers) */
+.px-slow  { transform: translate3d(calc(var(--mx) * 14px),  calc(var(--my) * 14px), 0); }
+.px-mid   { transform: translate3d(calc(var(--mx) * -28px), calc(var(--my) * -24px), 0); }
+.px-fast  { transform: translate3d(calc(var(--mx) * 46px),  calc(var(--my) * 40px), 0); }
+
+/* 3D tilt target */
+.tilt {
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora, .animate-drift, .animate-floaty2, .animate-floaty3,
+  .animate-hue, .animate-breathe, .animate-spin-slow, .animate-spin-rev,
+  .animate-wobble, .gradient-anim { animation: none !important; }
+  .px-slow, .px-mid, .px-fast, .tilt { transform: none !important; }
+}
+
+/* traveling light along the "how it works" line */
+@keyframes travelX { 0% { left: -2%; } 100% { left: 102%; } }
+.animate-travel { animation: travelX 5s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .animate-travel { animation: none !important; } }

@@ -1,3 +1,5 @@
+import MotionRoot from "@/components/MotionRoot";
+import CosmicBackground from "@/components/CosmicBackground";
 import Starfield from "@/components/Starfield";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -8,6 +10,8 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main className="relative">
+      <MotionRoot />
+      <CosmicBackground />
       <Starfield />
       <div className="relative z-10">
         <Navbar />

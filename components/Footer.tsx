@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLang } from "@/components/LanguageProvider";
 import Logo from "@/components/Logo";
 
@@ -16,8 +17,21 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-white/10 bg-space-void/60 py-14">
-      <div className="container-x">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-space-void/60 pt-14 pb-56">
+      {/* Earth horizon filling the bottom */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-0">
+        <div style={{ transform: "translateY(calc((1 - var(--syn)) * 18px))" }}>
+          <Image
+            src="/images/earth-horizon.jpg"
+            alt=""
+            width={1920}
+            height={900}
+            className="h-auto w-full object-cover opacity-80"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-space-void via-transparent to-space-void/40" />
+      </div>
+      <div className="container-x relative">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div className="max-w-sm">
             <div className="flex items-center gap-2.5">

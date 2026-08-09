@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useLang } from "@/components/LanguageProvider";
+import Tilt from "@/components/Tilt";
 
 export default function Hero() {
   const { t } = useLang();
@@ -14,7 +15,7 @@ export default function Hero() {
 
       <div className="container-x grid items-center gap-12 pb-20 lg:grid-cols-2 lg:pb-28">
         {/* Copy */}
-        <div>
+        <div style={{ transform: "translateY(calc(var(--syn) * -14px))" }}>
           <span className="kicker">
             <span className="h-1.5 w-1.5 animate-pulseGlow rounded-full bg-electric-bright shadow-neon" />
             {t.hero.badge}
@@ -22,7 +23,7 @@ export default function Hero() {
           <h1 className="heading mt-5 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
             {t.hero.title}
             <br />
-            <span className="gradient-text neon-text">{t.hero.titleAccent}</span>
+            <span className="gradient-anim neon-text">{t.hero.titleAccent}</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
             {t.hero.subtitle}
@@ -57,9 +58,23 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Image */}
-        <div className="relative">
-          <div className="animate-floaty">
+        {/* Image with orbital rings + tilt */}
+        <div className="relative" style={{ transform: "translateY(calc(var(--syn) * 12px))" }}>
+          {/* rotating orbital rings behind the panel */}
+          <div className="pointer-events-none absolute inset-0 -z-0 flex items-center justify-center">
+            <div className="animate-spin-slow h-[108%] w-[108%] rounded-full border border-electric/20" />
+          </div>
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="animate-spin-rev h-[116%] w-[116%] rounded-full border border-cyan-neon/10" />
+          </div>
+          {/* orbiting dot */}
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="animate-aurora h-[108%] w-[108%]">
+              <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-neon shadow-neon-cyan" />
+            </div>
+          </div>
+
+          <Tilt max={7} className="animate-floaty2">
             <div className="relative overflow-hidden rounded-3xl border border-electric/25 shadow-neon">
               <Image
                 src="/images/orbital.jpg"
@@ -75,9 +90,10 @@ export default function Hero() {
               </div>
               <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
             </div>
-          </div>
+          </Tilt>
+
           {/* floating tag */}
-          <div className="glass absolute -bottom-5 -left-3 hidden items-center gap-3 rounded-2xl px-4 py-3 sm:flex">
+          <div className="glass absolute -bottom-5 -left-3 hidden items-center gap-3 rounded-2xl px-4 py-3 sm:flex animate-floaty3">
             <span className="h-2.5 w-2.5 animate-pulseGlow rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
             <div>
               <div className="text-xs font-semibold text-white">System status</div>

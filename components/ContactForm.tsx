@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLang } from "@/components/LanguageProvider";
 import Reveal from "@/components/Reveal";
 
@@ -10,6 +10,11 @@ export default function ContactForm() {
   const { t, lang } = useLang();
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  // Render the form only after mount. Browser autofill/password-manager
+  // extensions inject nodes into <form> before hydration, which triggers a
+  // hydration mismatch; client-only rendering sidesteps that entirely.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const validate = (data: Record<string, string>) => {
     const e: Record<string, string> = {};
@@ -71,6 +76,9 @@ export default function ContactForm() {
         </Reveal>
 
         <Reveal delay={100}>
+          {!mounted ? (
+            <div className="glass rounded-2xl p-6 sm:p-8" style={{ minHeight: 560 }} aria-hidden />
+          ) : (
           <form onSubmit={onSubmit} noValidate className="glass rounded-2xl p-6 sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
@@ -135,6 +143,7 @@ export default function ContactForm() {
               </p>
             )}
           </form>
+          )}
         </Reveal>
       </div>
     </section>

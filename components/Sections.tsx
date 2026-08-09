@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useLang } from "@/components/LanguageProvider";
 import Reveal from "@/components/Reveal";
+import Tilt from "@/components/Tilt";
 
 /* ---------- shared icons ---------- */
 const iconClass = "h-6 w-6";
@@ -90,20 +91,38 @@ export function Vision() {
   ];
   return (
     <section id="vision" className="relative py-24">
-      <div className="container-x">
+      {/* floating planet accent */}
+      <div
+        className="pointer-events-none absolute -right-16 top-10 -z-0 hidden lg:block"
+        style={{ transform: "translateY(calc(var(--syn) * -45px))" }}
+      >
+        <div className="animate-floaty3 opacity-60">
+          <Image
+            src="/images/planet-violet.png"
+            alt=""
+            width={240}
+            height={240}
+            className="drop-shadow-[0_0_50px_rgba(157,91,255,0.35)]"
+          />
+        </div>
+      </div>
+
+      <div className="container-x relative">
         <Reveal>
           <SectionHeader kicker={t.vision.kicker} title={t.vision.title} body={t.vision.body} />
         </Reveal>
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {points.map((p, i) => (
             <Reveal key={i} delay={i * 100}>
-              <div className="card h-full">
-                <div className="mb-4 inline-flex rounded-xl border border-electric/30 bg-electric/10 p-3 text-electric-bright shadow-neon">
-                  {p.icon}
+              <Tilt max={9}>
+                <div className="card h-full">
+                  <div className="mb-4 inline-flex rounded-xl border border-electric/30 bg-electric/10 p-3 text-electric-bright shadow-neon animate-breathe">
+                    {p.icon}
+                  </div>
+                  <h3 className="font-display text-lg font-semibold text-white">{p.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/60">{p.body}</p>
                 </div>
-                <h3 className="font-display text-lg font-semibold text-white">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">{p.body}</p>
-              </div>
+              </Tilt>
             </Reveal>
           ))}
         </div>
@@ -125,18 +144,28 @@ export function Tech() {
     <section id="tech" className="relative py-24">
       <div className="hline mb-24" />
       <div className="container-x grid items-center gap-14 lg:grid-cols-2">
-        <Reveal className="order-2 lg:order-1">
-          <div className="relative overflow-hidden rounded-3xl border border-electric/25 shadow-neon">
-            <Image
-              src="/images/helios.jpg"
-              alt="Space DC — terawatt-class orbital facility"
-              width={1500}
-              height={1000}
-              className="h-auto w-full object-cover"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-space-void/60 to-transparent" />
-            <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
+        <Reveal className="relative order-2 lg:order-1">
+          {/* glow + rotating ring behind image */}
+          <div className="pointer-events-none absolute -inset-6 -z-0 rounded-full bg-electric/20 blur-3xl animate-breathe" />
+          <div className="pointer-events-none absolute inset-0 -z-0 flex items-center justify-center">
+            <div className="animate-spin-rev h-[120%] w-[120%] rounded-full border border-cyan-neon/10" />
           </div>
+          <Tilt max={9} className="animate-floaty3">
+            <div className="relative overflow-hidden rounded-3xl border border-electric/25 shadow-neon">
+              <Image
+                src="/images/helios.jpg"
+                alt="Space DC — terawatt-class orbital facility"
+                width={1500}
+                height={1000}
+                className="h-auto w-full object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-space-void/60 to-transparent" />
+              <div className="pointer-events-none absolute inset-0">
+                <div className="absolute inset-x-0 h-24 animate-scan bg-gradient-to-b from-transparent via-cyan-neon/10 to-transparent" />
+              </div>
+              <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
+            </div>
+          </Tilt>
         </Reveal>
 
         <div className="order-1 lg:order-2">
@@ -180,13 +209,15 @@ export function How() {
           <SectionHeader center kicker={t.how.kicker} title={t.how.title} />
         </Reveal>
         <div className="relative mt-16">
-          {/* connecting line */}
-          <div className="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-transparent via-electric/40 to-transparent lg:block" />
+          {/* connecting line + traveling light */}
+          <div className="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-transparent via-electric/40 to-transparent lg:block">
+            <span className="animate-travel absolute -top-[3px] h-1.5 w-1.5 rounded-full bg-cyan-neon shadow-neon-cyan" />
+          </div>
           <div className="grid gap-8 lg:grid-cols-4">
             {steps.map((s, i) => (
               <Reveal key={i} delay={i * 120}>
                 <div className="relative text-center lg:text-left">
-                  <div className="mx-auto lg:mx-0 flex h-12 w-12 items-center justify-center rounded-full border border-electric/40 bg-space-void font-display text-lg font-semibold text-electric-bright shadow-neon">
+                  <div className="mx-auto lg:mx-0 flex h-12 w-12 items-center justify-center rounded-full border border-electric/40 bg-space-void font-display text-lg font-semibold text-electric-bright shadow-neon animate-breathe">
                     {i + 1}
                   </div>
                   <h3 className="mt-5 font-display text-base font-semibold text-white">{s.title}</h3>
@@ -209,8 +240,24 @@ export function Tokenization() {
     <section id="token" className="relative py-24">
       <div className="container-x">
         <div className="relative overflow-hidden rounded-3xl border border-electric/20 bg-space-panel/50 p-8 sm:p-12 lg:p-16">
+          {/* nebula texture inside the panel */}
+          <div className="pointer-events-none absolute inset-0 -z-0 opacity-40 mix-blend-screen">
+            <Image src="/images/nebula-2.jpg" alt="" fill sizes="100vw" className="animate-hue object-cover" />
+          </div>
           <div className="pointer-events-none absolute inset-0 bg-grid-blue [background-size:40px_40px] opacity-40 [mask-image:radial-gradient(60%_60%_at_80%_20%,black,transparent)]" />
-          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-electric/20 blur-3xl" />
+          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-electric/20 blur-3xl animate-breathe" />
+          {/* planet accent (kept fully inside the panel so it never looks cut) */}
+          <div className="pointer-events-none absolute bottom-6 right-6 hidden opacity-70 md:block">
+            <div className="animate-floaty2">
+              <Image
+                src="/images/planet-blue.png"
+                alt=""
+                width={150}
+                height={150}
+                className="drop-shadow-[0_0_50px_rgba(63,224,255,0.4)]"
+              />
+            </div>
+          </div>
           <div className="relative max-w-2xl">
             <Reveal>
               <SectionHeader kicker={t.token.kicker} title={t.token.title} body={t.token.body} />
@@ -252,10 +299,14 @@ export function Stats() {
         <div className="mt-12 grid grid-cols-2 gap-6 lg:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={i} delay={i * 90}>
-              <div className="glass rounded-2xl p-6 text-center">
-                <div className="gradient-text font-display text-4xl font-bold sm:text-5xl">{s.v}</div>
-                <div className="mt-2 text-xs text-white/55 sm:text-sm">{s.l}</div>
-              </div>
+              <Tilt max={12}>
+                <div className="glass group rounded-2xl p-6 text-center transition duration-300 hover:border-electric-bright/60 hover:shadow-neon">
+                  <div className="gradient-anim font-display text-4xl font-bold transition-transform duration-300 group-hover:scale-110 sm:text-5xl">
+                    {s.v}
+                  </div>
+                  <div className="mt-2 text-xs text-white/55 sm:text-sm">{s.l}</div>
+                </div>
+              </Tilt>
             </Reveal>
           ))}
         </div>
