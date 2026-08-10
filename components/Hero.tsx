@@ -58,48 +58,22 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Image with orbital rings + tilt */}
+        {/* Floating orbital data center (frameless, transparent PNG) */}
         <div className="relative" style={{ transform: "translateY(calc(var(--syn) * 12px))" }}>
-          {/* rotating orbital rings behind the panel */}
+          {/* soft glow behind so it reads as floating */}
           <div className="pointer-events-none absolute inset-0 -z-0 flex items-center justify-center">
-            <div className="animate-spin-slow h-[108%] w-[108%] rounded-full border border-electric/20" />
+            <div className="h-[68%] w-[68%] rounded-full bg-electric/25 blur-3xl animate-breathe" />
           </div>
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="animate-spin-rev h-[116%] w-[116%] rounded-full border border-cyan-neon/10" />
-          </div>
-          {/* orbiting dot */}
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="animate-aurora h-[108%] w-[108%]">
-              <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-neon shadow-neon-cyan" />
-            </div>
-          </div>
-
-          <Tilt max={7} className="animate-floaty2">
-            <div className="relative overflow-hidden rounded-3xl border border-electric/25 shadow-neon">
-              <Image
-                src="/images/orbital.jpg"
-                alt="Space DC — orbital data center"
-                width={1456}
-                height={1092}
-                priority
-                className="h-auto w-full object-cover"
-              />
-              {/* scanline sweep */}
-              <div className="pointer-events-none absolute inset-0">
-                <div className="absolute inset-x-0 h-24 animate-scan bg-gradient-to-b from-transparent via-electric/10 to-transparent" />
-              </div>
-              <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
-            </div>
+          <Tilt max={8} className="animate-floaty2">
+            <Image
+              src="/images/orbital.png"
+              alt="Space DC — orbital data center"
+              width={1448}
+              height={1086}
+              priority
+              className="h-auto w-full drop-shadow-[0_0_70px_rgba(63,224,255,0.4)]"
+            />
           </Tilt>
-
-          {/* floating tag */}
-          <div className="glass absolute -bottom-5 -left-3 hidden items-center gap-3 rounded-2xl px-4 py-3 sm:flex animate-floaty3">
-            <span className="h-2.5 w-2.5 animate-pulseGlow rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
-            <div>
-              <div className="text-xs font-semibold text-white">System status</div>
-              <div className="text-[11px] text-white/50">Online · Solar 100%</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
